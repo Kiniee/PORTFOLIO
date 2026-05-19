@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franklin Deinla — UI/UX Designer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#0d0d0f;
+  --card:#151518;
+  --border:rgba(255,255,255,0.08);
+  --text:#f4f1ea;
+  --muted:#9f9b94;
+  --accent:#c9a76a;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
+
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:1.4rem 5rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+  background:rgba(13,13,15,0.92);
+  backdrop-filter:blur(10px);
+  z-index:100;
+}
+
+.logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;
+}
+
+.nav-links{
+  display:flex;
+  gap:2rem;
+  list-style:none;
+}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:0.85rem;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  transition:0.25s;
+}
+
+.nav-links a:hover{
+  color:var(--accent);
+}
+
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 5rem;
+  text-align:center;
+  position:relative;
+}
+
+.hero::before{
+  content:'';
+  position:absolute;
+  width:700px;
+  height:700px;
+  background:radial-gradient(circle, rgba(201,167,106,0.10), transparent 70%);
+  top:-250px;
+  right:-200px;
+}
+
+.hero-content{
+  max-width:850px;
+  position:relative;
+  z-index:2;
+}
+
+.hero-tag{
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  font-size:0.75rem;
+  margin-bottom:1.5rem;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3.5rem,8vw,6rem);
+  line-height:1;
+  margin-bottom:1rem;
+}
+
+.hero-title{
+  font-size:1.5rem;
+  color:var(--accent);
+  margin-bottom:1.8rem;
+  font-style:italic;
+}
+
+.hero-bio{
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.9;
+  max-width:700px;
+  margin:0 auto 2.5rem;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:0.9rem 2rem;
+  text-decoration:none;
+  border-radius:999px;
+  transition:0.25s;
+  font-size:0.85rem;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#111;
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px);
+}
+
+.btn-outline{
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.btn-outline:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+section{
+  padding:6rem 5rem;
+}
+
+.section-header{
+  margin-bottom:3rem;
+}
+
+.section-number{
+  color:var(--accent);
+  font-size:0.8rem;
+  letter-spacing:0.1em;
+  margin-bottom:0.8rem;
+  display:block;
+}
+
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;
+}
+
+.skills-grid,
+.projects-grid{
+  display:grid;
+  gap:1.5rem;
+}
+
+.skills-grid{
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
+
+.skill-card,
+.project-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:2rem;
+  border-radius:22px;
+  transition:0.35s;
+  position:relative;
+  overflow:hidden;
+}
+
+.skill-card::before,
+.project-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:3px;
+  background:var(--accent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:0.35s;
+}
+
+.skill-card:hover::before,
+.project-card:hover::before{
+  transform:scaleX(1);
+}
+
+.skill-card:hover,
+.project-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(201,167,106,0.3);
+  box-shadow:0 15px 35px rgba(0,0,0,0.35);
+}
+
+.skill-card h3,
+.project-card h3{
+  margin-bottom:0.8rem;
+}
+
+.skill-card p,
+.project-card p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.skill-bar{
+  width:100%;
+  height:6px;
+  background:rgba(255,255,255,0.06);
+  border-radius:999px;
+  overflow:hidden;
+  margin-top:1.2rem;
+}
+
+.skill-progress{
+  height:100%;
+  background:var(--accent);
+  border-radius:999px;
+  animation:loadBar 2s ease;
+}
+
+@keyframes loadBar{
+  from{
+    width:0;
+  }
+}
+
+.project-tag{
+  color:var(--accent);
+  font-size:0.75rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  display:block;
+}
+
+.education-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:2rem;
+  border-radius:22px;
+  transition:0.3s;
+}
+
+.education-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(201,167,106,0.3);
+}
+
+.education-card h3{
+  margin-bottom:0.5rem;
+}
+
+.education-card p{
+  color:var(--muted);
+}
+
+.contact{
+  text-align:center;
+}
+
+.contact p{
+  color:var(--muted);
+  margin-bottom:2rem;
+  line-height:1.8;
+}
+
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+@media(max-width:768px){
+
+  nav{
+    padding:1.2rem 1.5rem;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero,
+  section{
+    padding-left:1.5rem;
+    padding-right:1.5rem;
+  }
+
+  .hero h1{
+    font-size:3.5rem;
+  }
+
+  .section-title{
+    font-size:2rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Franklin Deinla</div>
+
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+
+    <div class="hero-tag">Available for opportunities</div>
+
+    <h1>Franklin Deinla</h1>
+
+    <div class="hero-title">UI/UX Designer & Developer</div>
+
+    <p class="hero-bio">
+      A 3rd-year BSIT student passionate about creating modern digital experiences that combine clean design, usability, and functional systems. I enjoy building projects that bridge creativity and technology.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <h3>UI/UX Design</h3>
+      <p>Wireframing, interface design, user-centered experiences, and modern layouts.</p>
+
+      <div class="skill-bar">
+        <div class="skill-progress" style="width:88%;"></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>Frontend Development</h3>
+      <p>Responsive websites using HTML, CSS, and JavaScript fundamentals.</p>
+
+      <div class="skill-bar">
+        <div class="skill-progress" style="width:82%;"></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>Python</h3>
+      <p>Logic building, automation, and software development fundamentals.</p>
+
+      <div class="skill-bar">
+        <div class="skill-progress" style="width:75%;"></div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>Database Management</h3>
+      <p>Designing structured databases and handling organized information systems.</p>
+
+      <div class="skill-bar">
+        <div class="skill-progress" style="width:72%;"></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="projects">
+
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <span class="project-tag">Finance App</span>
+
+      <h3>BadyetMate</h3>
+
+      <p>
+        A personal finance tracking mobile application focused on budgeting clarity, accessibility, and intuitive user experience.
+      </p>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Healthcare System</span>
+
+      <h3>DaleCare</h3>
+
+      <p>
+        An AI-assisted clinic management system designed to improve healthcare workflows, patient handling, and scheduling.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="education">
+
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Education</h2>
+  </div>
+
+  <div class="education-card">
+
+    <h3>Lyceum of the Philippines University — Cavite</h3>
+
+    <p>Bachelor of Science in Information Technology</p>
+    <p>2023 — Present</p>
+
+  </div>
+
+</section>
+
+<section id="contact" class="contact">
+
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Contact</h2>
+  </div>
+
+  <p>
+    Open to internships, collaborations, and freelance opportunities.
+  </p>
+
+  <a href="mailto:deinlafranklin@gmail.com" class="btn btn-primary">
+    deinlafranklin@gmail.com
+  </a>
+
+</section>
+
+<footer>
+  © 2026 Franklin Deinla · Portfolio
+</footer>
+
+</body>
+</html>
